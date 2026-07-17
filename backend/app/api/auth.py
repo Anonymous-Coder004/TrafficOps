@@ -10,17 +10,27 @@ from app.models.users import User
 router=APIRouter(prefix="/v1/auth",tags=["Authentication"])
 
 
-@router.post("/signup",response_model=UserResponse,status_code=status.HTTP_201_CREATED)
-def signup(data:SignupRequest,db:Session=Depends(get_db)):
+@router.post(
+    "/signup",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED
+)
+def signup(
+    data: SignupRequest,
+    db: Session = Depends(get_db)
+):
     try:
-        user=signup_user(
+
+        user = signup_user(
             db=db,
             email=data.email,
             username=data.username,
             password=data.password,
             role=data.role,
             total_officers=data.total_officers,
-            total_barricades=data.total_barricades
+            total_barricades=data.total_barricades,
+            assigned_latitude=data.assigned_latitude,
+            assigned_longitude=data.assigned_longitude
         )
 
         if user is None:
@@ -30,6 +40,15 @@ def signup(data:SignupRequest,db:Session=Depends(get_db)):
             )
 
         return user
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
 
     except ValueError as e:
         raise HTTPException(

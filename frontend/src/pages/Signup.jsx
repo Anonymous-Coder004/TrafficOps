@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { signup } from "../api/auth";
+import { MapPinned } from "lucide-react"
+import LocationPickerModal from "../components/maps/views/LocationPickerModal"
 
 export default function Signup() {
     const navigate=useNavigate();
@@ -12,11 +14,14 @@ export default function Signup() {
         confirmPassword:"",
         role:"ADMIN",
         total_officers:"",
-        total_barricades:""
+        total_barricades:"",
+        assigned_latitude:"",
+        assigned_longitude:""
     });
 
     const [error,setError]=useState("");
     const [loading,setLoading]=useState(false);
+    const [showLocationModal,setShowLocationModal]=useState(false);
 
     const handleChange=(e)=>{
         const {name,value}=e.target;
@@ -48,8 +53,18 @@ export default function Signup() {
             };
 
             if(formData.role==="GROUND_OFFICER"){
-                payload.total_officers=Number(formData.total_officers);
-                payload.total_barricades=Number(formData.total_barricades);
+
+                payload.total_officers=
+                    Number(formData.total_officers);
+
+                payload.total_barricades=
+                    Number(formData.total_barricades);
+
+                payload.assigned_latitude=
+                    Number(formData.assigned_latitude);
+
+                payload.assigned_longitude=
+                    Number(formData.assigned_longitude);
             }
 
             await signup(payload);
@@ -351,6 +366,58 @@ export default function Signup() {
 
                                 </div>
 
+                                <div className="mt-4">
+
+                                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                                        Deployment Location
+                                    </label>
+
+                                    <div className="grid grid-cols-[1fr_auto] gap-2 mb-3">
+
+                                        <input
+                                            type="number"
+                                            step="any"
+                                            placeholder="Latitude"
+                                            value={formData.assigned_latitude}
+                                            onChange={(e)=>
+                                                setFormData(prev=>({
+                                                    ...prev,
+                                                    assigned_latitude:e.target.value
+                                                }))
+                                            }
+                                            className="h-12 rounded-xl border border-slate-300 bg-white px-4"
+                                            required
+                                        />
+
+                                        <button
+                                            type="button"
+                                            onClick={()=>
+                                                setShowLocationModal(true)
+                                            }
+                                            className="h-12 w-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center hover:bg-emerald-700"
+                                        >
+                                            <MapPinned size={18}/>
+                                        </button>
+
+                                    </div>
+
+                                    <input
+                                        type="number"
+                                        step="any"
+                                        placeholder="Longitude"
+                                        value={formData.assigned_longitude}
+                                        onChange={(e)=>
+                                            setFormData(prev=>({
+                                                ...prev,
+                                                assigned_longitude:e.target.value
+                                            }))
+                                        }
+                                        className="w-full h-12 rounded-xl border border-slate-300 bg-white px-4"
+                                        required
+                                    />
+
+                                </div>
+
                             </div>
 
                         )}
@@ -386,7 +453,25 @@ export default function Signup() {
             </div>
 
         </div>
+            {
+            showLocationModal && (
+                <LocationPickerModal
+                    onClose={() =>
+                        setShowLocationModal(false)
+                    }
+                    onSelect={(coords) => {
 
+                        setFormData(prev => ({
+                            ...prev,
+                            assigned_latitude: coords.lat,
+                            assigned_longitude: coords.lng
+                        }))
+
+                        setShowLocationModal(false)
+                    }}
+                />
+            )
+        }
     </div>
 );
 }

@@ -25,6 +25,8 @@ def signup_user(
     role: UserRole,
     total_officers: int | None = None,
     total_barricades: int | None = None,
+    assigned_latitude: float | None = None,
+    assigned_longitude: float | None = None,
 ):
 
     # Email or username already exists
@@ -72,10 +74,16 @@ def signup_user(
 
         team_resource = TeamResource(
             user_id=user.id,
+
             total_officers=total_officers,
             available_officers=total_officers,
+
             total_barricades=total_barricades,
             available_barricades=total_barricades,
+
+            assigned_latitude=assigned_latitude,
+            assigned_longitude=assigned_longitude,
+
             status=TeamStatus.AVAILABLE
         )
 

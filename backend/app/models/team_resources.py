@@ -3,6 +3,7 @@ from app.db.base import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import (
     INTEGER,
+    FLOAT,
     Enum,
     ForeignKey
 )
@@ -49,6 +50,16 @@ class TeamResource(Base):
 
     available_barricades: Mapped[int] = mapped_column(
         INTEGER,
+        nullable=False
+    )
+
+    assigned_latitude: Mapped[float] = mapped_column(
+        FLOAT,
+        nullable=False
+    )
+
+    assigned_longitude: Mapped[float] = mapped_column(
+        FLOAT,
         nullable=False
     )
 

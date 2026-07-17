@@ -20,7 +20,6 @@ def get_current_user(credentials:HTTPAuthorizationCredentials=Depends(security),
     try:
         payload=verify_access_token(token)
         user_id=payload.get("user_id")
-
         if user_id is None:
             raise credentials_exception
 

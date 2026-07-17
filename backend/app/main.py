@@ -26,6 +26,13 @@ try:
 except Exception as e:
     print("ERROR importing auth router:", e)
     raise
+
+try:
+    from app.api import maps
+    print("maps router imported")
+except Exception as e:
+    print("ERROR importing map router:", e)
+    raise
 # ==================================================
 # APP INIT
 # ==================================================
@@ -87,6 +94,10 @@ try:
     )
 
     print("STEP 9: Auth router registered")
+
+    app.include_router(
+        maps.router,
+    )
 
 except Exception as e:
     print("ERROR registering routers:", e)

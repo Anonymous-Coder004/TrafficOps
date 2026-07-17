@@ -32,6 +32,10 @@ class SignupRequest(BaseModel):
 
     total_barricades: int | None = None
 
+    assigned_latitude: float | None = None
+
+    assigned_longitude: float | None = None
+
     @model_validator(mode="after")
     def validate_ground_officer(self):
 
@@ -45,6 +49,26 @@ class SignupRequest(BaseModel):
             if self.total_barricades is None:
                 raise ValueError(
                     "total_barricades is required for ground officers"
+                )
+
+            if self.assigned_latitude is None:
+                raise ValueError(
+                    "assigned_latitude is required for ground officers"
+                )
+
+            if self.assigned_longitude is None:
+                raise ValueError(
+                    "assigned_longitude is required for ground officers"
+                )
+
+            if not (-90 <= self.assigned_latitude <= 90):
+                raise ValueError(
+                    "assigned_latitude must be between -90 and 90"
+                )
+
+            if not (-180 <= self.assigned_longitude <= 180):
+                raise ValueError(
+                    "assigned_longitude must be between -180 and 180"
                 )
 
         return self
