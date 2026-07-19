@@ -10,10 +10,8 @@ from sqlalchemy import (
 
 import enum
 
+from app.enums.team_resources import TeamStatus
 
-class TeamStatus(str, enum.Enum):
-    AVAILABLE = "AVAILABLE"
-    OCCUPIED = "OCCUPIED"
 
 
 class TeamResource(Base):
@@ -73,4 +71,9 @@ class TeamResource(Base):
     user = relationship(
         "User",
         back_populates="team_resource"
+    )
+
+    assignments = relationship(
+        "IncidentAssignment",
+        back_populates="team",
     )

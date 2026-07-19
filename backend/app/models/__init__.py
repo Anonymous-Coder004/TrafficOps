@@ -1,2 +1,6 @@
 from app.models.users import User
 from app.models.team_resources import TeamResource
+from app.models.police_station import PoliceStation
+from app.models.incident import Incident
+from app.models.incident_assignment import IncidentAssignment
+from app.models.incident_recommendation import IncidentRecommendation

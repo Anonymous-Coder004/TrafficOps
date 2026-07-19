@@ -124,3 +124,4 @@ def authenticate_user(
     )
 
     return access_token
+

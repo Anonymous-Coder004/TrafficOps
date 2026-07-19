@@ -33,6 +33,13 @@ try:
 except Exception as e:
     print("ERROR importing map router:", e)
     raise
+try:
+    from app.api import ground_officer_incident,admin_incident,ground_officer_assignment
+    print("incident router imported")
+except Exception as e:
+    print("ERROR importing map router:", e)
+    raise
+
 # ==================================================
 # APP INIT
 # ==================================================
@@ -82,22 +89,17 @@ def health_check():
         "status": "healthy"
     }
 
-print("STEP 8: Base routes registered")
 
 # ==================================================
 # ROUTERS
 # ==================================================
 
 try:
-    app.include_router(
-        auth.router,
-    )
-
-    print("STEP 9: Auth router registered")
-
-    app.include_router(
-        maps.router,
-    )
+    app.include_router(auth.router,)
+    app.include_router(maps.router,)
+    app.include_router(ground_officer_incident.router,)
+    app.include_router(admin_incident.router)
+    app.include_router(ground_officer_assignment.router)
 
 except Exception as e:
     print("ERROR registering routers:", e)
