@@ -62,14 +62,11 @@ def create_incident(
 
 def get_active_incidents(db: Session):
     """
-    Returns all incidents except resolved ones,
+    Returns all incidents,
     ordered by newest first.
     """
     return (
         db.query(Incident)
-        .filter(
-            Incident.status != IncidentStatus.RESOLVED
-        )
         .order_by(
             Incident.created_at.desc()
         )

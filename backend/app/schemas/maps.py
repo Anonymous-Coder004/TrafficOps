@@ -6,3 +6,8 @@ class LocationResponse(BaseModel):
     display_name: str
     lat: float
     lon: float
+
+class RouteResponse(BaseModel):
+    coordinates: list[list[float]]
+    distance: float
+    duration: float

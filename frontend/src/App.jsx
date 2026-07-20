@@ -1,16 +1,25 @@
-import { Routes,Route,Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "tailwindcss";
+
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Home from "./pages/Home";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
+import IncidentManagement from "./pages/admin/IncidentManagement";
+import IncidentDetails from "./pages/admin/IncidentDetails";
+import Dashboard from "./pages/ground/Dashboard";
+import RoleRedirect from "./components/RoleRedirect";
+import ReportIncident from "./pages/ground/ReportIncident";
+import IncidentAssignments from "./pages/ground/IncidentAssignment";
+import IncidentNavigation from "./pages/ground/IncidentNavigation";
 function App() {
     return (
         <Routes>
 
-            {/* Auth Routes */}
+            {/* ===========================
+                Public Routes
+            =========================== */}
 
             <Route
                 path="/login"
@@ -22,18 +31,74 @@ function App() {
                 element={<Signup />}
             />
 
-            {/* Protected Home Route */}
+            {/* ===========================
+                Protected Routes
+            =========================== */}
+
+            <Route path="/" element={<RoleRedirect />}/>
 
             <Route
-                path="/"
+                path="/admin/incidents"
                 element={
-                    <ProtectedRoute>
-                        <Home />
+                    <ProtectedRoute roles={["ADMIN"]}>
+                        <IncidentManagement />
                     </ProtectedRoute>
                 }
             />
 
-            {/* Fallback */}
+            <Route
+                path="/admin/incidents/:id"
+                element={
+                    <ProtectedRoute roles={["ADMIN"]}>
+                        <IncidentDetails />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/ground/dashboard"
+                element={
+                    <ProtectedRoute roles={["GROUND_OFFICER"]}>
+                        <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/ground/report-incident"
+                element={
+                    <ProtectedRoute
+                        roles={["GROUND_OFFICER"]}
+                    >
+                        <ReportIncident />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/ground/incident-assignments"
+                element={
+                    <ProtectedRoute
+                        roles={["GROUND_OFFICER"]}
+                    >
+                        <IncidentAssignments />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/ground/incident-assignments/:assignmentId"
+                element={
+                    <ProtectedRoute
+                        roles={["GROUND_OFFICER"]}
+                    >
+                        <IncidentNavigation />
+                    </ProtectedRoute>
+                }
+            />
+            {/* ===========================
+                Fallback
+            =========================== */}
 
             <Route
                 path="*"

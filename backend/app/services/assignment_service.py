@@ -16,7 +16,8 @@ def get_my_assignments(
     return (
         db.query(IncidentAssignment)
         .options(
-            joinedload(IncidentAssignment.incident)
+            joinedload(IncidentAssignment.team),
+            joinedload(IncidentAssignment.incident),
         )
         .filter(
             IncidentAssignment.team_id == team_id
@@ -26,6 +27,33 @@ def get_my_assignments(
         )
         .all()
     )
+
+def get_assignment_by_id(
+    db: Session,
+    assignment_id: int,
+    team_id: int,
+):
+
+    assignment = (
+        db.query(IncidentAssignment)
+        .options(
+            joinedload(IncidentAssignment.team),
+            joinedload(IncidentAssignment.incident),
+        )
+        .filter(
+            IncidentAssignment.id == assignment_id,
+            IncidentAssignment.team_id == team_id,
+        )
+        .first()
+    )
+
+    if assignment is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Assignment not found.",
+        )
+
+    return assignment
 
 def start_assignment(
     db: Session,
@@ -38,6 +66,10 @@ def start_assignment(
 
     assignment = (
         db.query(IncidentAssignment)
+        .options(
+            joinedload(IncidentAssignment.team),
+            joinedload(IncidentAssignment.incident),
+        )
         .filter(
             IncidentAssignment.id == assignment_id
         )

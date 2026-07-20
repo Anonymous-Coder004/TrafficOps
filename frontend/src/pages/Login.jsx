@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
-import { login,getMe } from "../api/auth";
-import { useAuth } from "../context/AuthContext";
-
+import { useAuth } from "../context/authcontext";
+import { login as loginUser } from "../api/auth";
 export default function Login() {
     const navigate=useNavigate();
-    const {setUser}=useAuth();
+    const { login } = useAuth();
 
     const [formData,setFormData]=useState({
         email:"",
@@ -20,37 +19,60 @@ export default function Login() {
         setFormData(prev=>({...prev,[name]:value}));
     };
 
-    const handleSubmit=async(e)=>{
+    const handleSubmit = async (e) => {
+
         e.preventDefault();
+
         setError("");
 
-        try{
+        try {
+
             setLoading(true);
 
-            const res=await login(
+            const res = await loginUser(
+
                 formData.email,
+
                 formData.password
+
             );
 
-            const token=res.data.access_token;
+            const user = await login(
 
-            localStorage.setItem(
-                "access_token",
-                token
+                res.data.access_token
+
             );
 
-            const me=await getMe(token);
+            const routeMap = {
 
-            setUser(me.data);
+                ADMIN: "/admin/incidents",
 
-            navigate("/");
+                GROUND_OFFICER: "/ground/dashboard",
+
+            };
+
+            navigate(
+
+                routeMap[user.role] || "/"
+
+            );
+
         }
-        catch(err){
+
+        catch (err) {
+
+            console.error(err);
+
             setError("Invalid email or password");
+
         }
-        finally{
+
+        finally {
+
             setLoading(false);
+
         }
+
     };
 
     return (

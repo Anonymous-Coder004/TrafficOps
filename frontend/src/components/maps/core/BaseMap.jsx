@@ -37,21 +37,57 @@ function RecenterMap({
     return null
 }
 
+function FitBounds({
+    bounds
+}) {
+
+    const map = useMap()
+
+    useEffect(() => {
+
+        if (!bounds || bounds.length < 2) {
+            return
+        }
+
+        map.fitBounds(
+            bounds,
+            {
+                padding: [50, 50]
+            }
+        )
+
+    }, [bounds, map])
+
+    return null
+}
+
 export default function BaseMap({
+
     children,
+
     center = [12.9716, 77.5946],
+
     zoom = 12,
-    height = "400px"
+
+    height = "400px",
+
+    fitBounds = null,
+
 }) {
 
     return (
+
         <MapContainer
+
             center={center}
+
             zoom={zoom}
+
             style={{
                 height,
                 width: "100%"
             }}
+
         >
 
             <TileLayer
@@ -63,8 +99,20 @@ export default function BaseMap({
                 center={center}
             />
 
+            {
+                fitBounds && (
+
+                    <FitBounds
+                        bounds={fitBounds}
+                    />
+
+                )
+            }
+
             {children}
 
         </MapContainer>
+
     )
+
 }
