@@ -11,3 +11,8 @@ class RouteResponse(BaseModel):
     coordinates: list[list[float]]
     distance: float
     duration: float
+
+class MultiStopRouteResponse(BaseModel):
+    coordinates: list[list[float]]
+    distance: float         
+    duration: float          

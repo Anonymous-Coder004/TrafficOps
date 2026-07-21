@@ -4,3 +4,6 @@ from app.models.police_station import PoliceStation
 from app.models.incident import Incident
 from app.models.incident_assignment import IncidentAssignment
 from app.models.incident_recommendation import IncidentRecommendation
+from app.models.junction import Junction
+from app.models.patrol import Patrol
+from app.models.patrol_checkpoint import PatrolCheckpoint

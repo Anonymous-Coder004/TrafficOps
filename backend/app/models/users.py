@@ -55,3 +55,7 @@ class User(Base):
         back_populates="user",
         uselist=False
     )
+    created_patrols = relationship(
+    "Patrol",
+    back_populates="admin"
+)

@@ -77,3 +77,8 @@ class TeamResource(Base):
         "IncidentAssignment",
         back_populates="team",
     )
+
+    patrols = relationship(
+    "Patrol",
+    back_populates="team"
+) 
