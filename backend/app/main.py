@@ -51,7 +51,7 @@ except Exception as e:
     print("ERROR importing map router:", e)
     raise
 try:
-    from app.api import ground_officer_incident,admin_incident,ground_officer_assignment,ground_officer_patrol,admin_patrol
+    from app.api import ground_officer_incident,admin_incident,ground_officer_assignment,ground_officer_patrol,admin_patrol,teams
     print("incident router imported")
 except Exception as e:
     print("ERROR importing map router:", e)
@@ -120,6 +120,7 @@ try:
     app.include_router(ground_officer_assignment.router)
     app.include_router(admin_patrol.router)
     app.include_router(ground_officer_patrol.router)
+    app.include_router(teams.router)
 
 except Exception as e:
     print("ERROR registering routers:", e)

@@ -11,6 +11,7 @@ from app.models.patrol_checkpoint import PatrolCheckpoint
 from app.services.junction_service import (
     get_junctions_by_ids
 )
+from app.enums.team_resources import TeamStatus
 from app.models.users import User
 from app.services.patrol_helper_service import (_build_patrol_response,_generate_route,_get_ordered_checkpoints,_save_patrol_checkpoints,_validate_team,_create_patrol,_rank_candidate_junctions,_select_patrol_checkpoints,_build_patrol_summary)
 
@@ -50,6 +51,9 @@ def create_patrol(
         patrol=patrol,
         ordered_checkpoints=ordered_checkpoints,
     )
+
+    # Mark team as occupied
+    team.status = TeamStatus.OCCUPIED
 
     db.commit()
     db.refresh(patrol)
@@ -300,6 +304,7 @@ def complete_patrol(
     patrol.status = PatrolStatus.COMPLETED
     patrol.completed_at = datetime.now(timezone.utc)
 
+    # Mark all checkpoints as completed
     (
         db.query(PatrolCheckpoint)
         .filter(PatrolCheckpoint.patrol_id == patrol.id)
@@ -310,6 +315,10 @@ def complete_patrol(
             synchronize_session=False,
         )
     )
+
+    # Make the team available again
+    patrol.team.status = TeamStatus.AVAILABLE
+
     db.commit()
 
     return PatrolActionResponse(

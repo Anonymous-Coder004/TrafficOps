@@ -7,6 +7,7 @@ from app.schemas.patrol import PatrolRouteResponse,CheckpointResponse,PatrolSumm
 from app.models.team_resources import TeamResource
 from app.models.patrol import Patrol, PatrolStatus
 from app.models.patrol_checkpoint import PatrolCheckpoint
+from app.enums.team_resources import TeamStatus
 from app.services.maps_service import (
     get_distance_matrix,
     get_multi_stop_route,
@@ -40,24 +41,10 @@ def _validate_team(
             detail="Team location unavailable.",
         )
 
-    active_patrol = (
-        db.query(Patrol)
-        .filter(
-            Patrol.team_id == team_id,
-            Patrol.status.in_(
-                [
-                    PatrolStatus.PENDING,
-                    PatrolStatus.IN_PROGRESS,
-                ]
-            ),
-        )
-        .first()
-    )
-
-    if active_patrol:
+    if team.status == TeamStatus.OCCUPIED:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="This team already has an active patrol assigned.",
+            detail="This team is currently occupied.",
         )
 
     return team
