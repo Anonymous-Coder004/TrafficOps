@@ -3,26 +3,20 @@ import Header from "./Header";
 
 export default function AdminLayout({ children }) {
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="h-screen flex bg-gray-100 overflow-hidden">
 
             {/* Sidebar */}
-
             <Sidebar />
 
-            {/* Main Content */}
+            {/* Right Section */}
+            <div className="flex flex-1 flex-col overflow-hidden">
 
-            <div className="flex-1 flex flex-col overflow-hidden">
-
-                {/* Header */}
-
+                {/* Fixed Header */}
                 <Header />
 
-                {/* Page Content */}
-
+                {/* Only this scrolls */}
                 <main className="flex-1 overflow-y-auto p-8">
-
                     {children}
-
                 </main>
 
             </div>

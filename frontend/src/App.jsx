@@ -13,6 +13,7 @@ import RoleRedirect from "./components/RoleRedirect";
 import ReportIncident from "./pages/ground/ReportIncident";
 import IncidentAssignments from "./pages/ground/IncidentAssignment";
 import IncidentNavigation from "./pages/ground/IncidentNavigation";
+import PatrolManagement from "./pages/admin/PatrolManagement";
 function App() {
     return (
         <Routes>
@@ -53,6 +54,13 @@ function App() {
                         <IncidentDetails />
                     </ProtectedRoute>
                 }
+            />
+
+            <Route
+                path="/admin/patrols"
+                element={<ProtectedRoute roles={["ADMIN"]}>
+                <PatrolManagement />
+                </ProtectedRoute>}
             />
 
             <Route

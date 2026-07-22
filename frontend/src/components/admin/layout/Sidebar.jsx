@@ -18,10 +18,10 @@ const menuItems = [
         path: "/admin/incidents",
     },
     {
-        title: "Patrolling Management",
+        title: "Patrol Management",
         icon: Shield,
-        path: "/admin/patrolling",
-    },
+        path: "/admin/patrols",
+    }
 ];
 
 export default function Sidebar() {
