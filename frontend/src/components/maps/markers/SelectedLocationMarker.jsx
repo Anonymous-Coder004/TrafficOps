@@ -1,5 +1,5 @@
 import {Marker} from "react-leaflet"
-
+import { selectedLocationIcon } from "../utils/icons"
 export default function SelectedLocationMarker({
     location
 }) {
@@ -14,6 +14,7 @@ export default function SelectedLocationMarker({
                 location.lat,
                 location.lng
             ]}
+            icon={selectedLocationIcon}
         />
     )
 }
