@@ -63,29 +63,21 @@ export default function Dashboard() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                         <TaskCard
-
                             title="Incident Deployment"
-
                             description="View your assigned incidents."
-
                             icon={ClipboardList}
-
                             onClick={() =>
                                 navigate("/ground/incident-assignments")
                             }
-
                         />
 
                         <TaskCard
-
                             title="Patrolling Deployment"
-
-                            description="Coming Soon"
-
+                            description="View your assigned patrol and route."
                             icon={Car}
-
-                            disabled
-
+                            onClick={() =>
+                                navigate("/ground/patrolling-deployment")
+                            }
                         />
 
                     </div>

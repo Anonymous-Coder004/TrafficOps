@@ -14,6 +14,7 @@ import ReportIncident from "./pages/ground/ReportIncident";
 import IncidentAssignments from "./pages/ground/IncidentAssignment";
 import IncidentNavigation from "./pages/ground/IncidentNavigation";
 import PatrolManagement from "./pages/admin/PatrolManagement";
+import PatrollingDeployment from "./pages/ground/PatollingDeployment";
 function App() {
     return (
         <Routes>
@@ -103,6 +104,13 @@ function App() {
                         <IncidentNavigation />
                     </ProtectedRoute>
                 }
+            />
+
+            <Route
+                path="/ground/patrolling-deployment"
+                element={<ProtectedRoute
+                        roles={["GROUND_OFFICER"]}
+                    ><PatrollingDeployment /></ProtectedRoute>}
             />
             {/* ===========================
                 Fallback

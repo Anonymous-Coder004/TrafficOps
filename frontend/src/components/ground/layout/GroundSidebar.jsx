@@ -27,10 +27,10 @@ const menuItems = [
         path: "/ground/incident-assignments",
     },
     {
-        title: "Patrolling Deployment",
+    title: "Patrolling Deployment",
         icon: Car,
-        disabled: true,
-    },
+        path: "/ground/patrolling-deployment",
+    }
 ];
 
 export default function GroundSidebar() {
@@ -39,7 +39,7 @@ export default function GroundSidebar() {
 
     return (
 
-        <aside className="w-72 h-screen bg-white border-r border-gray-200 flex flex-col">
+        <aside className="sticky top-0 h-screen w-72 flex-shrink-0 bg-white border-r border-gray-200 flex flex-col z-40">
 
             {/* Logo */}
 
