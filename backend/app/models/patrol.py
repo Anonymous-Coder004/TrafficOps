@@ -17,16 +17,8 @@ from sqlalchemy import (
     ForeignKey,
     JSON,
 )
-
+from app.enums.patrol import PatrolStatus
 from sqlalchemy.sql.expression import text
-
-
-class PatrolStatus(str, enum.Enum):
-    PENDING = "PENDING"
-    IN_PROGRESS = "IN_PROGRESS"
-    COMPLETED = "COMPLETED"
-    CANCELLED = "CANCELLED"
-
 
 class Patrol(Base):
 

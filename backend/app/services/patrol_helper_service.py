@@ -5,7 +5,8 @@ from app.utils.tsp import solve_tsp
 from datetime import datetime
 from app.schemas.patrol import PatrolRouteResponse,CheckpointResponse,PatrolSummaryResponse
 from app.models.team_resources import TeamResource
-from app.models.patrol import Patrol, PatrolStatus
+from app.models.patrol import Patrol
+from app.enums.patrol import PatrolStatus
 from app.models.patrol_checkpoint import PatrolCheckpoint
 from app.enums.team_resources import TeamStatus
 from app.services.maps_service import (

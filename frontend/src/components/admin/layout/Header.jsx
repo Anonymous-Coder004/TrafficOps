@@ -25,40 +25,7 @@ export default function Header() {
 
             <div className="flex items-center gap-5">
 
-                {/* Notification */}
-
-                <button
-                    className="
-                        relative
-                        w-11
-                        h-11
-                        rounded-xl
-                        border
-                        border-gray-200
-                        hover:bg-emerald-50
-                        transition
-                        flex
-                        items-center
-                        justify-center
-                    "
-                >
-                    <Bell
-                        size={20}
-                        className="text-slate-700"
-                    />
-
-                    <span
-                        className="
-                            absolute
-                            top-2
-                            right-2
-                            w-2
-                            h-2
-                            rounded-full
-                            bg-emerald-500
-                        "
-                    />
-                </button>
+                
 
                 {/* User */}
 

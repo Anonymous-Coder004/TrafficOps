@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import GroundLayout from "../../components/ground/layout/GroundLayout";
 import IncidentForm from "../../components/ground/incident/IncidentForm";
 
@@ -20,7 +20,7 @@ export default function ReportIncident() {
 
             await reportIncident(formData);
 
-            alert("Incident reported successfully.");
+            toast.success("Incident reported successfully.");
 
             navigate("/ground/dashboard");
 
@@ -28,7 +28,7 @@ export default function ReportIncident() {
 
         catch (error) {
 
-            alert(
+            toast.error(
 
                 error?.response?.data?.detail ||
 

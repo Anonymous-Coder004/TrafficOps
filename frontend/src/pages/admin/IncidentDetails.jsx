@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import AdminLayout from "../../components/admin/layout/AdminLayout";
 import IncidentSummary from "../../components/admin/incident/details/IncidentSummary";
 import PredictionCard from "../../components/admin/incident/details/PredictionCard";
@@ -72,12 +72,17 @@ export default function IncidentDetails() {
             await predictIncident(id);
 
             await loadIncident();
-
+            toast.success("Prediction completed successfully.");
         }
 
         catch (err) {
 
             console.error(err);
+
+            toast.error(
+                err?.response?.data?.detail ||
+                "Prediction failed."
+            );
 
         }
 
@@ -98,12 +103,17 @@ export default function IncidentDetails() {
             await recommendResources(id);
 
             await loadIncident();
-
+            toast.success("Recommendation successful.");
         }
 
         catch (err) {
 
             console.error(err);
+
+            toast.error(
+                err?.response?.data?.detail ||
+                "Failed to generate recommendation."
+            );
 
         }
 
@@ -124,12 +134,17 @@ export default function IncidentDetails() {
             await updateRecommendation(id, payload);
 
             await loadIncident();
-
+            toast.success("Recommendation saved successfully.");
         }
 
         catch (err) {
 
             console.error(err);
+
+            toast.error(
+                err?.response?.data?.detail ||
+                "Failed to save recommendation."
+            );
 
         }
 
@@ -143,29 +158,34 @@ export default function IncidentDetails() {
 
     async function handleDeploy() {
 
-        try {
+    try {
 
-            setDeployLoading(true);
+        setDeployLoading(true);
 
-            await deployIncident(id);
-
-            await loadIncident();
-
-        }
-
-        catch (err) {
-
-            console.error(err);
-
-        }
-
-        finally {
-
-            setDeployLoading(false);
-
-        }
+        await deployIncident(id);
+        await loadIncident();
+        toast.success("Incident deployed successfully.");
 
     }
+
+    catch (err) {
+
+        console.error(err);
+
+        toast.error(
+            err?.response?.data?.detail ||
+            "Failed to deploy incident."
+        );
+
+    }
+
+    finally {
+
+        setDeployLoading(false);
+
+    }
+
+}
 
     if (loading) {
 

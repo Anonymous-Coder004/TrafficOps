@@ -6,6 +6,7 @@ import {
     useNavigate,
     useParams,
 } from "react-router-dom";
+import toast from "react-hot-toast";
 import GroundLayout from "../../components/ground/layout/GroundLayout";
 import AssignmentInfoCard from "../../components/ground/navigation/AssignmentInfoCard";
 import AssignmentControls from "../../components/ground/navigation/AssignmentControls";
@@ -33,10 +34,10 @@ export default function IncidentNavigation() {
 
             setLoading(true);
 
+            setError("");
+
             const data = await getAssignmentById(
-
                 assignmentId
-
             );
 
             setAssignment(data);
@@ -45,13 +46,13 @@ export default function IncidentNavigation() {
 
         catch (err) {
 
-            setError(
-
+            const message =
                 err?.response?.data?.detail ||
+                "Unable to load assignment.";
 
-                "Unable to load assignment."
+            setError(message);
 
-            );
+            toast.error(message);
 
         }
 
@@ -75,23 +76,20 @@ export default function IncidentNavigation() {
             setActionLoading(true);
 
             await startAssignment(
-
                 assignment.id
-
             );
 
             await loadAssignment();
+
+            toast.success("Assignment started successfully.");
 
         }
 
         catch (err) {
 
-            alert(
-
+            toast.error(
                 err?.response?.data?.detail ||
-
                 "Failed to start assignment."
-
             );
 
         }
@@ -114,7 +112,8 @@ export default function IncidentNavigation() {
                 assignment.id
             );
 
-            // Redirect to Ground Officer dashboard
+            toast.success("Assignment completed successfully.");
+
             navigate("/ground/dashboard", {
                 replace: true,
             });
@@ -123,12 +122,9 @@ export default function IncidentNavigation() {
 
         catch (err) {
 
-            alert(
-
+            toast.error(
                 err?.response?.data?.detail ||
-
                 "Failed to complete assignment."
-
             );
 
         }

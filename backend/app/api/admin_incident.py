@@ -18,7 +18,7 @@ from app.services.incident_service import (
     recommend_resources,
     update_recommendation,
 )
-from app.services.aastram_deployment_service import deploy_incident
+from app.services.incident_deployment_service import deploy_incident
 from app.schemas.incident import RecommendationUpdate
 
 router = APIRouter(

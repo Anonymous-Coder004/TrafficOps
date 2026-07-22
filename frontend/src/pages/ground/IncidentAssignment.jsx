@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import GroundLayout from "../../components/ground/layout/GroundLayout";
 
 import AssignmentList from "../../components/ground/assignment/AssignmentList";
@@ -24,21 +24,25 @@ export default function IncidentAssignments() {
 
             setLoading(true);
 
+            setError("");
+
             const data = await getAssignments();
 
             setAssignments(data);
+
+            toast.success("Assignments loaded successfully.");
 
         }
 
         catch (err) {
 
-            setError(
-
+            const message =
                 err?.response?.data?.detail ||
+                "Failed to fetch assignments.";
 
-                "Failed to fetch assignments."
+            setError(message);
 
-            );
+            toast.error(message);
 
         }
 

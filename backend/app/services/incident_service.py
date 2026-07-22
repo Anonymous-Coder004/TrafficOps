@@ -10,13 +10,13 @@ from app.schemas.incident import IncidentCreate,RecommendationUpdate
 from app.services.police_station_service import (
     find_nearest_police_station,
 )
-from app.services.aastram_prediction_service import (
+from app.services.incident_prediction_service import (
     predict_incident_priority,
 )
 from app.models.incident_recommendation import (
     IncidentRecommendation,
 )
-from app.services.aastram_recommendation_service import (
+from app.services.incident_recommendation_service import (
     generate_recommendation,
 )
 from fastapi import HTTPException, status

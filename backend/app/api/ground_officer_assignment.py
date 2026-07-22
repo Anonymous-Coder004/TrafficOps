@@ -7,7 +7,7 @@ from fastapi import (
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.schemas.assignment import AssignmentResponse
-from app.services.assignment_service import get_my_assignments,start_assignment,complete_assignment,get_assignment_by_id
+from app.services.incident_assignment_service import get_my_assignments,start_assignment,complete_assignment,get_assignment_by_id
 from app.api.dep import get_current_ground_officer
 from app.models.users import User
 

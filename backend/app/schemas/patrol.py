@@ -3,8 +3,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict,Field
 
-from app.models.patrol import PatrolStatus
-
+from app.enums.patrol import PatrolStatus
 
 class PatrolCreate(BaseModel):
     team_id: int

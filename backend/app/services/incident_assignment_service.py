@@ -160,7 +160,6 @@ def complete_assignment(
 
     team.available_officers += assignment.officers_assigned
     team.available_barricades += assignment.barricades_assigned
-    team.status = TeamStatus.AVAILABLE
 
     # Check if any assignment is still pending
     remaining_assignments = (

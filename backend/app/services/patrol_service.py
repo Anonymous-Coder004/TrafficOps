@@ -6,7 +6,8 @@ from app.schemas.patrol import (
     PatrolRouteResponse,
     CheckpointResponse,PatrolSummaryResponse
 )
-from app.models.patrol import Patrol, PatrolStatus
+from app.models.patrol import Patrol
+from app.enums.patrol import PatrolStatus
 from app.models.patrol_checkpoint import PatrolCheckpoint
 from app.services.junction_service import (
     get_junctions_by_ids

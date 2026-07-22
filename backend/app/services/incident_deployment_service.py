@@ -1,8 +1,8 @@
 from math import radians, sin, cos, sqrt, atan2
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from app.models.team_resources import (
-    TeamResource,
-    TeamStatus,
+    TeamResource,TeamStatus
 )
 from app.models.incident import Incident
 from app.enums.assignment import AssignmentStatus
@@ -48,7 +48,10 @@ def find_available_teams(
         db.query(TeamResource)
         .filter(
             TeamResource.status == TeamStatus.AVAILABLE,
-            TeamResource.available_officers > 0,
+            or_(
+                TeamResource.available_officers > 0,
+                TeamResource.available_barricades > 0,
+            )
         )
         .all()
     )
@@ -124,8 +127,6 @@ def _allocate_resources(
         team.available_officers -= officers_to_assign
         team.available_barricades -= barricades_to_assign
 
-        if team.available_officers == 0:
-            team.status = TeamStatus.OCCUPIED
 
         remaining_officers -= officers_to_assign
         remaining_barricades -= barricades_to_assign
