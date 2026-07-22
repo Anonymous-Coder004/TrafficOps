@@ -25,6 +25,27 @@ export const createPatrol = async (
     return response.data;
 };
 
+// Get all patrols
+export const getAllPatrols = async () => {
+
+    const response = await API.get(
+        "/v1/admin/patrols"
+    );
+
+    return response.data;
+
+};
+
+// Get patrol by ID
+export const getPatrolById = async (patrolId) => {
+
+    const response = await API.get(
+        `/v1/admin/patrols/${patrolId}`
+    );
+
+    return response.data;
+
+};
 // ======================
 // GROUND OFFICER APIs
 // ======================

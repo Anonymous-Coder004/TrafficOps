@@ -8,7 +8,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 import IncidentManagement from "./pages/admin/IncidentManagement";
 import IncidentDetails from "./pages/admin/IncidentDetails";
-import Dashboard from "./pages/ground/Dashboard";
+import GroundDashboard from "./pages/ground/Dashboard";
+import AdminDashboard from "./pages/admin/Dashboard";
 import RoleRedirect from "./components/RoleRedirect";
 import ReportIncident from "./pages/ground/ReportIncident";
 import IncidentAssignments from "./pages/ground/IncidentAssignment";
@@ -65,10 +66,18 @@ function App() {
             />
 
             <Route
+                path="/admin/dashboard"
+                element={
+                    <ProtectedRoute roles={["ADMIN"]}>
+                        <AdminDashboard />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
                 path="/ground/dashboard"
                 element={
                     <ProtectedRoute roles={["GROUND_OFFICER"]}>
-                        <Dashboard />
+                        <GroundDashboard />
                     </ProtectedRoute>
                 }
             />

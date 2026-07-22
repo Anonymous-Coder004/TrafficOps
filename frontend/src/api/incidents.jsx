@@ -4,7 +4,7 @@ import API from "./axios";
    Incident Management
 ========================================== */
 
-export const getActiveIncidents = async () => {
+export const getAllIncidents = async () => {
     const response = await API.get(
         "/v1/admin/incidents"
     );

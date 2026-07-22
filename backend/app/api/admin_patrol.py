@@ -41,7 +41,7 @@ def create_patrol_endpoint(
 
 @router.get(
     "",
-    response_model=list[PatrolSummaryResponse],
+    response_model=list[PatrolRouteResponse],
     status_code=status.HTTP_200_OK,
 )
 def get_all_patrols_endpoint(

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import AdminLayout from "../../components/admin/layout/AdminLayout";
 import IncidentTable from "../../components/admin/incident/IncidentTable";
 
-import { getActiveIncidents } from "../../api/incidents";
+import { getAllIncidents } from "../../api/incidents";
 
 export default function IncidentManagement() {
 
@@ -21,7 +21,7 @@ export default function IncidentManagement() {
 
         setLoading(true);
 
-        const data = await getActiveIncidents();
+        const data = await getAllIncidents();
 
         setIncidents(data);
 

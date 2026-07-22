@@ -132,7 +132,7 @@ def get_patrol_by_id(
 
 def get_all_patrols(
     db: Session,
-) -> list[PatrolSummaryResponse]:
+) -> list[PatrolRouteResponse]:
 
     patrols = (
         db.query(Patrol)
@@ -140,13 +140,61 @@ def get_all_patrols(
         .all()
     )
 
-    return [
-        _build_patrol_summary(
-            patrol=patrol,
-            team=patrol.team,
+    patrol_responses = []
+
+    for patrol in patrols:
+
+        patrol_checkpoints = (
+            db.query(PatrolCheckpoint)
+            .filter(
+                PatrolCheckpoint.patrol_id == patrol.id
+            )
+            .order_by(PatrolCheckpoint.visit_order)
+            .all()
         )
-        for patrol in patrols
-    ]
+
+        junction_ids = [
+            checkpoint.junction_id
+            for checkpoint in patrol_checkpoints
+        ]
+
+        junctions = get_junctions_by_ids(
+            db=db,
+            junction_ids=junction_ids,
+        )
+
+        junction_map = {
+            junction.id: junction
+            for junction in junctions
+        }
+
+        checkpoint_responses = []
+
+        for checkpoint in patrol_checkpoints:
+
+            junction = junction_map[checkpoint.junction_id]
+
+            checkpoint_responses.append(
+                CheckpointResponse(
+                    junction_id=junction.id,
+                    junction_name=junction.junction_name,
+                    latitude=junction.latitude,
+                    longitude=junction.longitude,
+                    priority_score=checkpoint.priority_score,
+                    visit_order=checkpoint.visit_order,
+                )
+            )
+
+        patrol_responses.append(
+            _build_patrol_response(
+                patrol=patrol,
+                team=patrol.team,
+                admin_id=patrol.assigned_by,
+                checkpoint_responses=checkpoint_responses,
+            )
+        )
+
+    return patrol_responses
 
 def get_current_patrol(
     db: Session,
