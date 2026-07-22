@@ -2,10 +2,10 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import AdminLayout from "../../components/admin/layout/AdminLayout";
-import IncidentSummary from "../../components/admin/incident/details/IncidentSummary";
-import PredictionCard from "../../components/admin/incident/details/PredictionCard";
-import RecommendationCard from "../../components/admin/incident/details/RecommendationCard";
-import DeploymentCard from "../../components/admin/incident/details/DeploymentCard";
+import IncidentSummary from "../../components/admin/Incident/details/IncidentSummary";
+import PredictionCard from "../../components/admin/Incident/details/PredictionCard";
+import RecommendationCard from "../../components/admin/Incident/details/RecommendationCard";
+import DeploymentCard from "../../components/admin/Incident/details/DeploymentCard";
 
 import {
     getIncidentById,

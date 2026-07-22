@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import AdminLayout from "../../components/admin/layout/AdminLayout";
-import IncidentTable from "../../components/admin/incident/IncidentTable";
+import IncidentTable from "../../components/admin/Incident/IncidentTable";
 
 import { getAllIncidents } from "../../api/incidents";
 
