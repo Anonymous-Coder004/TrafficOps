@@ -18,6 +18,7 @@ from app.services.patrol_helper_service import (_build_patrol_response,_generate
 def create_patrol(
     db: Session,
     team_id: int,
+    radius_km: float,
     admin_id: int,
 ) -> PatrolSummaryResponse:
 
@@ -29,6 +30,7 @@ def create_patrol(
     ordered_checkpoints = _get_ordered_checkpoints(
         db=db,
         team=team,
+        radius_km=radius_km,
     )
 
     route = _generate_route(

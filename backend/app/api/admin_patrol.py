@@ -35,6 +35,7 @@ def create_patrol_endpoint(
     return create_patrol(
         db=db,
         team_id=body.team_id,
+        radius_km=body.radius_km,
         admin_id=current_admin.id,
     )
 

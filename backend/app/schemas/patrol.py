@@ -1,13 +1,17 @@
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict,Field
 
 from app.models.patrol import PatrolStatus
 
 
 class PatrolCreate(BaseModel):
     team_id: int
+    radius_km: float = Field(
+        ge=1,
+        le=10,
+    )
 
 
 class PatrolStatusUpdate(BaseModel):

@@ -52,6 +52,7 @@ def _validate_team(
 def _get_ordered_checkpoints(
     db: Session,
     team: TeamResource,
+    radius_km: float,
 ) -> list:
 
     candidate_junctions = (
@@ -59,6 +60,7 @@ def _get_ordered_checkpoints(
             db=db,
             latitude=team.assigned_latitude,
             longitude=team.assigned_longitude,
+            radius_km=radius_km,
         )
     )
 
